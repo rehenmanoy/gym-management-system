@@ -7,12 +7,12 @@ The system enables gym administrators to efficiently manage member registrations
 
 ## 🚀 Features
 
-- ✔ **Member Registration** – Add, edit, and manage member profiles  
-- ✔ **Attendance Tracking** – Record and view member attendance  
-- ✔ **Fee Management** – Track fee payments and pending dues  
-- ✔ **Responsive UI** – Simple HTML/CSS interface that works across devices  
-- ✔ **Backend API** – Node.js + Express.js routes for secure data handling  
-- ✔ **MongoDB Database** – Stores member details, attendance, and payment records  
+ ✔ **Member Registration** – Add, edit, and manage member profiles  
+ ✔ **Attendance Tracking** – Record and view member attendance  
+ ✔ **Fee Management** – Track fee payments and pending dues  
+ ✔ **Responsive UI** – Simple HTML/CSS interface that works across devices  
+ ✔ **Backend API** – Node.js + Express.js routes for secure data handling  
+ ✔ **MongoDB Database** – Stores member details, attendance, and payment records  
 
 ---
 
