@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Member List</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #121212;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .left-section {
+            width: 40%;
+            background: url('background-image.jpg') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 40px;
+        }
+
+        .logo-container {
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            background-color: white;
+            padding: 10px;
+        }
+
+        .left-section h2 {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .left-section h1 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .right-section {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            background-color: #252525;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #fb6a6a;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #d75b5b;
+        }
+
+        .member-list-container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: white;
+            font-size: 16px;
+        }
+
+        .member-item {
+            background-color: #444;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .member-name {
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+
+        .member-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .view-button {
+            background-color: #6a82fb;
+            color: white;
+        }
+
+        .edit-button {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .remove-button {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .action-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        .dialog-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .dialog {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 101;
+            min-width: 300px;
+            color: white;
+        }
+
+        .dialog h3 {
+            margin-bottom: 20px;
+        }
+
+        .dialog-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .dialog-buttons button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .dialog-buttons .confirm {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .dialog-buttons .cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .dialog-buttons button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        /* Member Details Dialog Styles */
+            .dialog-overlay-member {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 100;
+            }
+
+            .dialog-member {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #1e1e1e;
+                padding: 20px;
+                border-radius: 10px;
+                z-index: 101;
+                min-width: 300px;
+                color: white;
+                max-width: 500px;
+                width: 90%;
+            }
+
+            .dialog-member h3 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                text-align: center;
+            }
+
+            #memberDetailsContent p {
+                margin-bottom: 10px;
+                font-size: 16px;
+                color: #e0e0e0;
+            }
+
+            #memberDetailsContent p strong {
+                color: #6a82fb;
+            }
+
+            .dialog-buttons-member {
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .dialog-buttons-member button {
+                padding: 8px 16px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+
+            .dialog-buttons-member .cancel {
+                background-color: #6c757d;
+                color: white;
+            }
+
+            .dialog-buttons-member button:hover {
+                opacity: 0.9;
+                transform: translateY(-2px);
+            }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goBack()">Back</button>
+        <div class="left-section">
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Gym Logo" class="logo">
+            </div>
+            <h2>Push Your Limits</h2>
+            <h1>ALL DAY</h1>
+        </div>
+        <div class="right-section">
+            
+            <div class="member-list-container">
+                <h2>Member List</h2>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search Member" onkeyup="searchMembers()">
+                </div>
+                <div id="membersList">
+                    <!-- Members will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div class="dialog-overlay" id="confirmOverlay"></div>
+    <div class="dialog" id="confirmDialog">
+        <h3>Are you sure you want to remove this member?</h3>
+        <div class="dialog-buttons">
+            <button class="cancel" onclick="closeDialog()">Cancel</button>
+            <button class="confirm" onclick="confirmRemove()">Remove</button>
+        </div>
+    </div>
+
+    <!-- Member Details Dialog -->
+<div class="dialog-overlay-member" id="memberDetailsOverlay"></div>
+<div class="dialog-member" id="memberDetailsDialog">
+    <h3>Member Details</h3>
+    <div id="memberDetailsContent">
+        <!-- Member details will be displayed here -->
+    </div>
+    <div class="dialog-buttons-member">
+        <button class="cancel" onclick="closeMemberDetailsDialog()">Close</button>
+    </div>
+</div>
+
+
+    <script>
+        let members = [];
+        let selectedMemberId = null;
+
+        // Fetch members when page loads
+        window.onload = async function() {
+            await fetchMembers();
+        };
+
+        async function fetchMembers() {
+            try {
+                const response = await fetch('http://localhost:5550/user/member/getall');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    members = data;
+                    displayMembers(members);
+                } else {
+                    alert('Failed to fetch members');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while fetching members');
+            }
+        }
+
+        function displayMembers(membersToDisplay) {
+            const membersList = document.getElementById('membersList');
+            membersList.innerHTML = '';
+
+            membersToDisplay.forEach(member => {
+                const memberElement = document.createElement('div');
+                memberElement.className = 'member-item';
+                memberElement.innerHTML = `
+                    <span class="member-name">${member.name}</span>
+                    <div class="member-actions">
+                        <button class="action-button view-button" onclick="viewMember('${member._id}')">View Details</button>
+                        <button class="action-button edit-button" onclick="editMember('${member._id}')">Edit Details</button>
+                        <button class="action-button remove-button" onclick="showRemoveDialog('${member._id}')">Remove Member</button>
+                    </div>
+                `;
+                membersList.appendChild(memberElement);
+            });
+        }
+
+        function searchMembers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredMembers = members.filter(member => 
+                member.name.toLowerCase().includes(searchTerm) ||
+                member.email.toLowerCase().includes(searchTerm)
+            );
+            displayMembers(filteredMembers);
+        }
+
+        function viewMember(memberId) {
+            // Redirect to member details page
+            window.location.href = `member-details.html?id=${memberId}`;
+        }
+
+        function editMember(memberId) {
+            // Redirect to member edit page
+            window.location.href = `editmem.html?id=${memberId}`;
+        }
+
+        function showRemoveDialog(memberId) {
+            selectedMemberId = memberId;
+            document.getElementById('confirmOverlay').style.display = 'block';
+            document.getElementById('confirmDialog').style.display = 'block';
+        }
+
+        function closeDialog() {
+            document.getElementById('confirmOverlay').style.display = 'none';
+            document.getElementById('confirmDialog').style.display = 'none';
+            selectedMemberId = null;
+        }
+
+        async function confirmRemove() {
+            if (!selectedMemberId) return;
+
+            try {
+                const response = await fetch(`http://localhost:5550/user/member/delete/${selectedMemberId}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    await fetchMembers(); // Refresh the list
+                    alert('Member removed successfully');
+                } else {
+                    alert('Failed to remove member');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while removing the member');
+            }
+
+            closeDialog();
+        }
+
+        function goBack() {
+            window.location.href = 'secondpage.html';
+        }
+        function viewMember(memberId) {
+    // Fetch the member details from the server
+    fetchMemberDetails(memberId);
+}
+
+async function fetchMemberDetails(memberId) {
+    try {
+        const response = await fetch(`http://localhost:5550/user/member/${memberId}`);
+        const member = await response.json();
+
+        if (response.ok) {
+            showMemberDetails(member);
+        } else {
+            alert('Failed to fetch member details');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while fetching member details');
+    }
+}
+
+function showMemberDetails(member) {
+    const detailsContent = document.getElementById('memberDetailsContent');
+    
+    const dobb = new Date(member.dob).toLocaleDateString();
+    const startDatee = new Date(member.startDate).toLocaleDateString();
+
+    // Populate the dialog with member details
+    detailsContent.innerHTML = `
+        <p><strong>Name:</strong> ${member.name}</p>
+        <p><strong>Email:</strong> ${member.email}</p>
+        <p><strong>Phone:</strong> ${member.phone}</p>
+        <p><strong>Gender:</strong> ${member.gender}</p>
+        <p><strong>Date Of Birth:</strong> ${dobb}</p>
+        <p><strong>Joined Date:</strong> ${startDatee}</p>
+        <p><strong>Plan:</strong>&nbsp;${member.plan}</p>
+        <p><strong>Trainer Assigned:</strong>${member.trainer}</p>
+        <p><strong>Fitness Goal:</strong> &nbsp;${member.fitnessGoals}</p>
+        <p><strong>Payment Status:</strong>${member.paymentStatus}</p>
+    `;
+    
+    // Show the dialog box
+    document.getElementById('memberDetailsOverlay').style.display = 'block';
+    document.getElementById('memberDetailsDialog').style.display = 'block';
+}
+
+function closeMemberDetailsDialog() {
+    // Hide the member details dialog
+    document.getElementById('memberDetailsOverlay').style.display = 'none';
+    document.getElementById('memberDetailsDialog').style.display = 'none';
+}
+
+    </script>
+</body>
+</html>

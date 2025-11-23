@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #121212; /* Dark background color */
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    height: 600px;
+    background-color: #1e1e1e; /* Dark container color */
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden; /* Ensures content doesn't overflow the rounded corners */
+}
+
+.left-section {
+    width: 40%;
+    background: url('background-image.jpg') no-repeat center center/cover; /* Optional background image */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 40px;
+}
+
+.logo-container {
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    background-color: white;
+    padding: 10px;
+}
+
+.left-section h2 {
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.left-section h1 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.right-section {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #252525; /* Darker right section color */
+    padding: 20px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    overflow: hidden;
+}
+
+.form-container {
+    width: 80%;
+    max-width: 400px;
+}
+
+.form-container h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #e0e0e0; /* Lighter text color */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333; /* Dark input background */
+    color: white; /* White text for input */
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #6a82fb; /* Highlight color on focus */
+}
+
+button {
+    background-color: #6a82fb; /* Primary button color */
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #5b6dd7; /* Slightly darker on hover */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+#forgot-password {
+    text-align: center;
+    margin-top: 20px;
+    color: #6a82fb; /* Light blue for contrast */
+    text-decoration: none;
+}
+
+#forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Forgot Password Dialog */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dialog-box {
+    background-color: #1e1e1e; /* Dark dialog box color */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #e0e0e0; /* Lighter color for close button */
+    cursor: pointer;
+}
+
+/* Optional: Add styles for the form inside the dialog box */
+#forgot-password-form input {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444; /* Dark border */
+    border-radius: 5px;
+    background-color: #333; /* Dark input background */
+    color: white; /* White text for input */
+}
+
+#forgot-password-form button {
+    background-color: #6a82fb; /* Primary button color */
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+}
+
+#forgot-password-form button:hover {
+    background-color: #5b6dd7; /* Hover effect */
+}

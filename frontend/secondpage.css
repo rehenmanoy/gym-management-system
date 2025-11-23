@@ -1,0 +1,172 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #121212; /* Dark background */
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    height: 600px;
+    background-color: #1e1e1e; /* Dark container color */
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.left-section {
+    width: 40%;
+    background: url('background-image.jpg') no-repeat center center/cover; /* Optional background image */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 40px;
+}
+
+.logo-container {
+    margin-bottom: 30px;
+}
+
+.logo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: white;
+    padding: 10px;
+}
+
+.left-section h2 {
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.left-section h1 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.right-section {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #252525; /* Darker right section color */
+    padding: 20px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    overflow: hidden;
+}
+
+.form-container {
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+.form-container h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #e0e0e0; /* Lighter text color */
+}
+
+
+button {
+    background-color: #6a82fb; /* Primary button color */
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 5px; /* Rounded corners */
+}
+
+button:hover {
+    background-color: #5b6dd7; /* Slightly darker on hover */
+}
+
+#logout {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 100px;
+    height: 40px;
+    background-color: #dc3545; /* Red for log out */
+}
+
+.confirm-dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: #1e1e1e; /* Dark dialog box color */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    padding: 30px;
+    text-align: center;
+    color: white; /* White text */
+}
+
+.confirm-dialog h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.confirm-dialog button {
+    margin: 5px;
+    padding: 10px;
+    width: 70px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#confirm-yes {
+    background-color: #28a745; /* Green */
+    color: white;
+}
+
+#confirm-yes:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+#confirm-no {
+    background-color: #dc3545; /* Red */
+    color: white;
+}
+
+#confirm-no:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.confirm-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    z-index: 999;
+}

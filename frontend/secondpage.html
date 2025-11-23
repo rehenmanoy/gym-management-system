@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second Page</title>
+    <link rel="stylesheet" href="secondpage.css">
+</head>
+    
+<body>
+    <div class="container">
+        <!-- Left Section -->
+        <div class="left-section">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="logo.jpg" alt="Gym Logo">
+                </div>
+            </div>
+            <h2>Push Your Limits</h2>
+            <h1>ALL DAY</h1>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <div class="form-container">
+                <button id="logout">Log Out</button>
+                <h2>Welcome, Admin</h2>
+                <div class="button-container">
+                    <a href="addmem.html"><button id="addmem">Add Member</button></a>
+                    <a href="viewmem.html"><button id="viewmem">View Members</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation dialog -->
+    <div class="confirm-overlay"></div>
+    <div class="confirm-dialog" id="confirmDialog">
+        <h3>Are You Sure?</h3>
+        <button id="confirm-yes">Yes</button>
+        <button id="confirm-no">No</button>
+    </div>
+</body>
+<script>
+    const logoutBtn = document.getElementById('logout');
+       const confirmDialog = document.getElementById('confirmDialog');
+       const confirmOverlay = document.querySelector('.confirm-overlay');
+
+       // Show dialog when logout button is clicked
+       logoutBtn.addEventListener('click', function() {
+           confirmDialog.style.display = 'block';
+           confirmOverlay.style.display = 'block';
+       });
+
+       // If "Yes" is clicked, redirect to login page
+       document.getElementById('confirm-yes').addEventListener('click', function() {
+           window.location.href = 'signinpage.html'; // Adjust the path to your login page
+       });
+
+       // If "No" is clicked, close the dialog and overlay
+       document.getElementById('confirm-no').addEventListener('click', function() {
+           confirmDialog.style.display = 'none';
+           confirmOverlay.style.display = 'none';
+       });
+</script>
+</html>

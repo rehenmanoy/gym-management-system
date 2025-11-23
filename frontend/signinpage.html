@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Login Page</title>
+    <link rel="stylesheet" href="signinpage.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div class="logo-container">
+                <img src="logo.jpg" alt="Gym Logo" class="logo">
+            </div>
+            <h2>Push Your Limits</h2>
+            <h1>ALL DAY</h1>
+        </div>
+        <div class="right-section">
+            <div class="form-container">
+                <h2>Admin Sign-in</h2>
+                <form id="loginForm">
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                    <a href="#" id="forgot-password">Forgot Password?</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Forgot Password Dialog -->
+    <div id="forgot-password-dialog" style="display:none;" class="dialog-overlay">
+        <div class="dialog-box">
+            <span class="close-btn">&times;</span>
+            <h3 style="color: white;" align="center">Reset Password</h3>
+            <form id="forgot-password-form">
+                <input type="email" id="forgotemail" placeholder="Enter your email" required>
+                <input type="password" id="new-password" placeholder="New Password" required>
+                <input type="password" id="confirm-password" placeholder="Confirm New Password" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    const forgotPasswordLink = document.getElementById('forgot-password');
+    const forgotPasswordDialog = document.getElementById('forgot-password-dialog');
+    const closeBtn = document.querySelector('.close-btn');
+
+    const pass= document.getElementById('new-password');
+    const passconfirm = document.getElementById('confirm-password');
+
+
+
+    // Show the dialog box when "Forgot Password?" is clicked
+    forgotPasswordLink.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default link action
+        forgotPasswordDialog.style.display = 'flex'; // Show the dialog
+    });
+
+    // Close the dialog box when the close button is clicked
+    closeBtn.addEventListener('click', function() {
+        forgotPasswordDialog.style.display = 'none'; // Hide the dialog
+    });
+
+    // Optionally, close the dialog if clicking outside the box
+    window.addEventListener('click', function(event) {
+        if (event.target === forgotPasswordDialog) {
+            forgotPasswordDialog.style.display = 'none'; // Hide the dialog
+        }
+    });
+
+    document.getElementById('forgot-password-form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the password inputs
+            const email = document.getElementById('forgotemail').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Check if the passwords match
+            if (newPassword !== confirmPassword) {
+                alert('Both passwords must be the same');
+                return; // Stop form submission
+            }
+
+            const response = await fetch('http://localhost:5550/admin/passchange', {
+                method : 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({
+                    email:email,
+                    newpass:confirmPassword
+                })
+            });
+
+            const data = await response.json();
+            if(response.ok){
+                alert('Password Changed!');
+                forgotPasswordDialog.style.display='none';
+            }else{
+                alert(data.message || 'Failed. Please try again.');
+            }
+        });
+
+        // JavaScript to handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                // Send POST request to backend for authentication
+                const response = await fetch('http://localhost:5550/admin/adminlogin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                // Handle response from the server
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Login successful!');
+                    // Optionally redirect the user after successful login
+                    window.location.href = 'secondpage.html'; // Example redirect
+                } else {
+                    alert(data.message || 'Login failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        });
+    
+</script>
+
+</html>
