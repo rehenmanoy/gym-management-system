@@ -38,26 +38,29 @@ The system enables gym administrators to efficiently manage member registrations
 ---
 
 ## 📁 Folder Structure
+
+```text
 gym-management-system/
 │
 ├── frontend/
-│ ├── addmem.html
-│ ├── editmem.html
-│ ├── secondpage.html
-│ ├── signinpage.html
-│ ├── viewmem.html
-│ ├── *.css
-│ └── logo.jpg
+│   ├── addmem.html
+│   ├── editmem.html
+│   ├── secondpage.html
+│   ├── signinpage.html
+│   ├── viewmem.html
+│   ├── *.css
+│   └── logo.jpg
 │
 ├── backend/
-│ ├── index.js
-│ ├── routes/
-│ ├── models/
-│ ├── package.json
-│ └── package-lock.json
+│   ├── index.js
+│   ├── routes/
+│   ├── models/
+│   ├── package.json
+│   └── package-lock.json
 │
 ├── .gitignore
 └── README.md
+```
 
 ## 🚀 How to Run (Development Version)
 
