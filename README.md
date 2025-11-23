@@ -72,8 +72,11 @@ To explore the code:
 - Open the `frontend/` folder to view all HTML/CSS pages  
 - Open the `backend/` folder to explore Express.js routes and models  
 - Backend dependencies can be installed using:
+  ```bash
   npm install
+
 - To run the backend after configuring MongoDB:
+  ```bash
   npm start
   
 ## 👤 Author
