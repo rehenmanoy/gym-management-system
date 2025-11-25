@@ -17,7 +17,7 @@ const port = process.env.PORT || 5550;
 
 mongoose.Promise = global.Promise;
 //live
-mongoose.connect('mongodb+srv://rehenmanoy:wadproject@mircroproject.9t5hp.mongodb.net/?retryWrites=true&w=majority&appName=mircroproject',
+mongoose.connect('',
 
     { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
         console.log("DataBase connected.");
